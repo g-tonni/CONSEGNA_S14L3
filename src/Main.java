@@ -70,8 +70,7 @@ void main() {
 
     System.out.println("---------------------------------- PRIMO ESERCIZIO");
     List<Product> booksMag100 = elencoProdotti.stream()
-            .filter(product -> product.getCategory() == Category.BOOK)
-            .filter(book -> book.getPrice() > 100)
+            .filter(product -> product.getCategory() == Category.BOOK && product.getPrice() > 100)
             .toList();
     System.out.println(booksMag100);
 
@@ -98,5 +97,19 @@ void main() {
     System.out.println(prezzoScontato);
 
     System.out.println("---------------------------------- QUARTO ESERCIZIO");
-    
+    LocalDate primaData = LocalDate.of(2026, 1, 1);
+    LocalDate secondaData = LocalDate.of(2026, 6, 30);
+
+    List<Product> prodottiSpeciali =
+            elencoOrdini.stream()
+                    .filter(order -> order.getCustomer().getTier() == 2)
+                    .filter(order -> primaData.isBefore(order.getOrderDate()) && secondaData.isAfter(order.getOrderDate()))
+                    .map(order -> order.getProducts())
+                    .flatMap(products -> products.stream())
+                    .toList();
+    for (int i = 0; i < prodottiSpeciali.size(); i++) {
+        System.out.println(prodottiSpeciali.get(i));
+    }
+
+
 }
