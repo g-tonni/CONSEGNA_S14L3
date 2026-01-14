@@ -102,8 +102,7 @@ void main() {
 
     List<Product> prodottiSpeciali =
             elencoOrdini.stream()
-                    .filter(order -> order.getCustomer().getTier() == 2)
-                    .filter(order -> primaData.isBefore(order.getOrderDate()) && secondaData.isAfter(order.getOrderDate()))
+                    .filter(order -> order.getCustomer().getTier() == 2 && primaData.isBefore(order.getOrderDate()) && secondaData.isAfter(order.getOrderDate()))
                     .map(order -> order.getProducts())
                     .flatMap(products -> products.stream())
                     .toList();
